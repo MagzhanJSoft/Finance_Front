@@ -14,17 +14,28 @@ export class OrganizationComponent implements OnInit {
 
   organizations$: Observable<listOrg>
   first = 0
-  rows = 1
+  rows = 3
+  last = 3
 
   ngOnInit() {
-    this.organizations$ = this.orgService.fetch()
+    this.fetchOrg()
+  }
+
+  fetchOrg() {
+
+    let params = {
+      limit: this.rows.toString(),
+      offset: this.first.toString()
+    }
+
+    this.organizations$ = this.orgService.fetch(params)
+
   }
 
   onPageChange(event: any) {
-    console.log(event);
-
-    this.first = event.first;
-    this.rows = event.rows;
+    this.first = event.first
+    this.rows = event.rows
+    this.fetchOrg()
   }
 
 }

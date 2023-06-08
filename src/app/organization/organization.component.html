@@ -1,5 +1,5 @@
 <div class="card" *ngIf="(organizations$ | async) as organizations; else loader">
-    <p-table *ngIf="organizations; else empty" [value]="organizations.results" [scrollable]="true"
+    <p-table *ngIf="organizations.count !== 0; else empty" [value]="organizations.results" [scrollable]="true"
         scrollHeight="calc(100vh - 200px)" selectionMode="single"
         styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
         <ng-template pTemplate="header">
@@ -31,12 +31,12 @@
             Нет ни одной организации
         </div>
     </ng-template>
-    <div class="flex align-items-center justify-content-end">
-        <span class="mx-1 text-color">Items per page: </span>
+    <div *ngIf="organizations.count !== 0" class="flex align-items-center justify-content-center">
+        <span class="mx-1 text-color">Указано</span>
         <p-paginator [first]="first" [rows]="rows" [totalRecords]="organizations.count || 0"
             (onPageChange)="onPageChange($event)" [showCurrentPageReport]="true"
-            currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="true"
-            [showFirstLastIcon]="true"></p-paginator>
+            currentPageReportTemplate="{{first+1}} - {{((this.first / this.rows) + 1) * rows}} из {{organizations.count}} элементов"
+            [showPageLinks]="true" [showFirstLastIcon]="true"></p-paginator>
     </div>
 </div>
 

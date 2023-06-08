@@ -11,9 +11,11 @@ import { listOrg } from "../interfaces";
 export class OrganizationsService {
     constructor(private http: HttpClient) {
     }
-    host = "http://127.0.0.1:8000"
+    // host = "http://127.0.0.1:8000"
+    host = "http://192.168.10.251:8000/"
 
-    fetch(): Observable<listOrg> {
-        return this.http.get<listOrg>(this.host + '/api/orglist')
+
+    fetch(params: any): Observable<listOrg> {
+        return this.http.get<listOrg>(this.host + '/api/orglist', { params })
     }
 }
